@@ -16,7 +16,8 @@ define('PRICE_PER_SCOOP', 2,00);
 define('SALES_TAX', 0.08);
 
 // include header
-include ('header.html');
+$title = "Order Summary";
+include ('header.php');
 ?>
 
 
@@ -33,6 +34,12 @@ include ('header.html');
         $cone = $_POST['cone'];
         $flavors = $_POST['flavor'];
         $flavorList = implode(", ", $flavors);
+
+        // Make sure flavors does not exceed scoops
+    if (sizeof($flavors) > $numScoops) {
+        echo "<h2>Oops! You have more flavors than scoops.</h2>";
+        return;
+    }
 
         // Calculate price
     $subtotal = $numScoops * PRICE_PER_SCOOP;
